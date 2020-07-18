@@ -26,7 +26,7 @@ FROM solsson/kafka:2.5.0-jre as config
 
 WORKDIR /opt/keycloak.x
 
-COPY --from=dev /workspace/keycloak.x .
+COPY --from=dev /opt/keycloak.x /opt/keycloak.x
 
 RUN ./bin/kc.sh config
 
@@ -40,8 +40,8 @@ RUN echo 'nonroot:x:65532:65534:nonroot:/home/nonroot:/usr/sbin/nologin' >> /etc
   mkdir -p /home/nonroot && touch /home/nonroot/.bash_history && chown -R 65532:65534 /home/nonroot
 USER nonroot:nogroup
 
-WORKDIR /opt/keycloak.x
+WORKDIR /home/nonroot
 
-COPY --from=config /opt/keycloak.x .
+COPY --from=config /opt/keycloak.x /opt/keycloak.x
 
 ENTRYPOINT /opt/keycloak.x/bin/kc.sh

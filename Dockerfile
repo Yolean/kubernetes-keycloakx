@@ -22,7 +22,8 @@ RUN sha256sum keycloak/distribution/server-x/target/*.gz
 
 RUN tar xvzf keycloak/distribution/server-x/target/*.gz && mv keycloak.x-* keycloak.x
 
-FROM solsson/kafka:2.5.0-jre as config
+FROM solsson/kafka:jre@sha256:cf733bd15bd9e5037573433e976a4454ba48bf19838c158f4d764971d1e2b719 \
+  as config
 
 WORKDIR /opt/keycloak.x
 
@@ -32,8 +33,7 @@ RUN ./bin/kc.sh config
 
 RUN sed -i 's|exec |echo "Entrypoint would be:"; echo |' ./bin/kc.sh
 
-# https://github.com/solsson/dockerfiles/tree/master/jre-nonroot
-FROM adoptopenjdk:11.0.8_10-jre-hotspot-bionic@sha256:24864d2d79437f775c70fd368c0272a1579a45a81c965e5fdcf0de699c15a054
+FROM solsson/kafka:jre@sha256:cf733bd15bd9e5037573433e976a4454ba48bf19838c158f4d764971d1e2b719
 
 # Note that there's also a nouser 65534 user which has no writable home
 RUN echo 'nonroot:x:65532:65534:nonroot:/home/nonroot:/usr/sbin/nologin' >> /etc/passwd && \

@@ -17,10 +17,12 @@ Status:
 - https://infinispan.org/docs/9.4.x/server_guide/server_guide.html#server_config_jgroups
 - https://github.com/keycloak/keycloak/commit/1db1deb0668b01eafa5dd03b222f51699be48008
 - https://github.com/keycloak/keycloak/commit/b04932ede56993d36de70768c41d4c946c4c79e0#diff-d6997f5a4578cd9576ae6f1fdb5739db
+- https://github.com/keycloak/keycloak/tree/master/quarkus/runtime/src/main/resources
+- https://github.com/keycloak/keycloak/blob/master/quarkus/server/src/main/resources/META-INF/keycloak.properties
 
 ### Testing the image
 
 ```
 docker build -t keycloakx .
-docker run --rm --entrypoint java keycloakx <args from docker run --rm keycloakx>
+docker run --rm --entrypoint java keycloakx -Dquarkus.datasource.url='jdbc:h2:file:/home/nonroot/data/keycloakdb;;AUTO_SERVER=TRUE' <args from docker run --rm keycloakx>
 ```

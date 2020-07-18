@@ -33,12 +33,7 @@ RUN ./bin/kc.sh config
 
 RUN sed -i 's|exec |echo "Entrypoint would be:"; echo |' ./bin/kc.sh
 
-FROM solsson/kafka:jre@sha256:cf733bd15bd9e5037573433e976a4454ba48bf19838c158f4d764971d1e2b719
-
-# Note that there's also a nouser 65534 user which has no writable home
-RUN echo 'nonroot:x:65532:65534:nonroot:/home/nonroot:/usr/sbin/nologin' >> /etc/passwd && \
-  mkdir -p /home/nonroot && touch /home/nonroot/.bash_history && chown -R 65532:65534 /home/nonroot
-USER nonroot:nogroup
+FROM solsson/kafka:jre-nonroot@sha256:c33c6170438e047f4cfe18801baffb28bddd7b8ac7d73ab69037ae99f9a81271
 
 ENV HOME=/home/nonroot
 

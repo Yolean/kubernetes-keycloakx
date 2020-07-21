@@ -1,0 +1,17 @@
+# NOTE it's common wisdom to use utf8mb4 instead of utf8
+# as Yolean/kubernets-mysql-cluster rightly does
+# BUT Keycloak explicitly recommends utf8
+# https://www.keycloak.org/docs/latest/server_installation/index.html#unicode-considerations-for-databases
+
+[client-server]
+
+[client]
+default-character-set = utf8
+
+[mysqld]
+character-set-server = utf8
+collation-server = utf8_unicode_ci
+init-connect='SET NAMES utf8'
+
+[mysql]
+default-character-set = utf8

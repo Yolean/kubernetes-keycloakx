@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kc
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9990"
+    spec:
+      containers:
+      - name: keycloak
+        image: builds-registry.ystack.svc.cluster.local/solsson/keycloakx
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: management
+          containerPort: 9990
+        - name: jgroups-tcp
+          containerPort: 7600
+        env:
+        - name: DB_VENDOR
+          value: mysql
+        - name: DB_ADDR
+          value: mysql
+        - name: DB_DATABASE
+          # https://www.keycloak.org/docs/latest/server_installation/index.html#mysql-database
+          value: keycloak?characterEncoding=UTF-8
+        - name: DB_USER
+          value: keycloak
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: keycloak
+              key: sqlpassword
+        - name: CACHE_OWNERS_COUNT
+          value: "2"
+        - name: CACHE_OWNERS_AUTH_SESSIONS_COUNT
+          value: "2"
+        - name: JGROUPS_DISCOVERY_PROTOCOL
+          value: dns.DNS_PING
+        - name: JGROUPS_DISCOVERY_PROPERTIES
+          value: dns_query=jgroups-dns-ping
+        - name: KEYCLOAK_STATISTICS
+          value: db,http,jgroups
+        args:
+        - -b=0.0.0.0
+        - -bmanagement=0.0.0.0
+        - --server-config=standalone-ha.xml
+        readinessProbe:
+          httpGet:
+            path: /auth/
+            port: 8080
+        resources:
+          requests:
+            cpu: 500m
+            memory: 800Mi
+          limits:
+            cpu: 500m
+            memory: 800Mi

@@ -1,0 +1,10 @@
+namespace: keycloakx
+bases:
+- ../base-mysql
+resources:
+- jgroups-dns-ping-service.yaml
+- kc-deployment.yaml
+secretGenerator:
+- name: keycloak
+  literals:
+  - sqlpassword=EXAMPLE

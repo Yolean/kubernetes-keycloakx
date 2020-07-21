@@ -1,0 +1,9 @@
+bases:
+- github.com/Yolean/kubernetes-mysql-cluster?ref=bd4538dd07e12413a4c91345fbd8980184c976cf
+patchesStrategicMerge:
+- mariadb-setup-keycloak.yaml
+configMapGenerator:
+- name: conf-d
+  behavior: merge
+  files:
+  - utf8.cnf

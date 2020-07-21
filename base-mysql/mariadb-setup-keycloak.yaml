@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+spec:
+  template:
+    spec:
+      containers:
+      - name: mariadb
+        env:
+        - name: MYSQL_USER
+          value: keycloak
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: keycloak
+              key: sqlpassword
+        - name: MYSQL_DATABASE
+          value: keycloak

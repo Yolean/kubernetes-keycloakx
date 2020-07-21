@@ -24,11 +24,7 @@
   <jgroups>
     <stack name="kubernetes-keycloakx">
       <TCP bind_port="7800" port_range="30" recv_buf_size="20000000" send_buf_size="640000"/>
-      <MPING bind_addr="127.0.0.1" break_on_coord_rsp="true"
-             mcast_addr="${jgroups.mping.mcast_addr:228.2.4.6}"
-             mcast_port="${jgroups.mping.mcast_port:43366}"
-             num_discovery_runs="3"
-             ip_ttl="${jgroups.udp.ip_ttl:2}"/>
+      <dns.DNS_PING dns_query="TBD.myproject.svc.cluster.local" />
       <MERGE3 />
       <FD_SOCK />
       <FD_ALL timeout="3000" interval="1000" timeout_check_interval="1000" />

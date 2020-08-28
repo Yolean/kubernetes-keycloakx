@@ -1,5 +1,5 @@
 bases:
-- github.com/Yolean/kubernetes-mysql-cluster?ref=bd4538dd07e12413a4c91345fbd8980184c976cf
+- github.com/Yolean/kubernetes-mysql-cluster/variants/scale-1-ephemeral?ref=bd4538dd07e12413a4c91345fbd8980184c976cf
 patchesStrategicMerge:
 - mariadb-setup-keycloak.yaml
 configMapGenerator:

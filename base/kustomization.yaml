@@ -1,6 +1,7 @@
 namespace: keycloakx
 bases:
-- ../base-mysql
+#- ../base-mysql
+- ../conf
 resources:
 - jgroups-dns-ping-service.yaml
 - kc-deployment.yaml

@@ -1,7 +1,7 @@
 FROM yolean/builder-quarkus:927c0c196729e8409062991eb62ec77b7223f375@sha256:91a3460de58d483cc37706a97c1323f2594217af3f31f16ec614d470a9e0c7a2 \
   as dev
 
-ARG keycloak_version=68e2ac3692435879ccacfab02ccca6e8c83b2a75
+ARG keycloak_version=db84699979230c8ca74d73bfa5b2ed4943b92ae1
 
 WORKDIR /workspace
 

@@ -1,0 +1,8 @@
+*
+
+# For COPY instead of download+build in Dockerfile
+#!keycloak/distribution/server-x-dist/target/keycloak.x-*.tar.gz
+
+# Maybe we'll just mount these
+#!conf/keycloak.properties
+#!conf/cluster.xml

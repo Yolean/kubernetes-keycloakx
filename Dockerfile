@@ -38,6 +38,7 @@ ARG db_database=keycloak
 ARG db_username=keycloak
 ARG db_password=keycloak
 ARG db_properties="characterEncoding=UTF-8"
+ARG db_orm_dialect="org.hibernate.dialect.MariaDB102Dialect"
 
 ARG http_enabled=true
 # Or maybe =passthrough
@@ -58,6 +59,11 @@ RUN ./bin/kc.sh config \
   --metrics-enabled=${metrics_enabled} \
   --cluster=${cluster} \
   --cluster-stack=${cluster_stack} \
+  # \
+  # --datasource-driver=${db} \
+  # --datasource-url=jdbc:${db}://${db_host}/${db_database}?${db_properties} \
+  # --hibernate-orm-dialect=${db_orm_dialect} \
+  # --datasource-db-kind=${db} \
   \
   -Dkc.db.url.host=${db_host} \
   -Dkc.db.url.database=${db_database} \

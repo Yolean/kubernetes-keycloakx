@@ -49,3 +49,6 @@ services:
     # - -cp
     # -    /opt/keycloak.x/bin/../lib/quarkus-run.jar:/opt/keycloak.x/bin/../lib/main/*
     # - io.quarkus.bootstrap.runner.QuarkusEntryPoint
+    - --datasource-username=keycloak \
+    - --datasource-password=keycloak \
+    - --datasource-url=jdbc:mariadb://mysql:3306/keycloak?characterEncoding=UTF-8

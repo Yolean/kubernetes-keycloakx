@@ -1,25 +1,25 @@
 FROM yolean/builder-quarkus:927c0c196729e8409062991eb62ec77b7223f375@sha256:91a3460de58d483cc37706a97c1323f2594217af3f31f16ec614d470a9e0c7a2 \
   as dev
 
-ARG keycloak_version=833bf9864356abe6f2c9f672edf1438b8635f48c
-
-WORKDIR /workspace
-
-RUN curl -sLS -o keycloak.tgz https://github.com/keycloak/keycloak/archive/$keycloak_version.tar.gz
-
-RUN tar xzf keycloak.tgz && mv keycloak-$keycloak_version keycloak
-
-# https://github.com/keycloak/keycloak/tree/master/quarkus#building-the-distribution
-RUN cd keycloak/quarkus && \
-  mvn --batch-mode -f ../pom.xml \
-    clean install \
-    -DskipTestsuite \
-    -DskipExamples \
-    -DskipTests \
-    -Pdistribution
+# ARG keycloak_version=833bf9864356abe6f2c9f672edf1438b8635f48c
+#
+# WORKDIR /workspace
+#
+# RUN curl -sLS -o keycloak.tgz https://github.com/keycloak/keycloak/archive/$keycloak_version.tar.gz
+#
+# RUN tar xzf keycloak.tgz && mv keycloak-$keycloak_version keycloak
+#
+# # https://github.com/keycloak/keycloak/tree/master/quarkus#building-the-distribution
+# RUN cd keycloak/quarkus && \
+#   mvn --batch-mode -f ../pom.xml \
+#     clean install \
+#     -DskipTestsuite \
+#     -DskipExamples \
+#     -DskipTests \
+#     -Pdistribution
 
 # Instead of the above, use a local keycloak clone + mvn package, see also .dockerignore
-#COPY keycloak/distribution/server-x-dist/target/*.gz keycloak/distribution/server-x-dist/target/
+COPY keycloak/distribution/server-x-dist/target/*.gz keycloak/distribution/server-x-dist/target/
 
 RUN sha256sum keycloak/distribution/server-x-dist/target/*.gz
 

@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: keycloak
-        image: builds-registry.ystack.svc.cluster.local/solsson/keycloakx
+        image: solsson/keycloakx
         imagePullPolicy: Always
         ports:
         - name: http

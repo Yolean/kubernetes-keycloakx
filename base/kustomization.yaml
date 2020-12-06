@@ -1,4 +1,4 @@
-namespace: keycloakx
+namespace: keycloakxdev
 bases:
 #- ../base-mysql
 - ../conf

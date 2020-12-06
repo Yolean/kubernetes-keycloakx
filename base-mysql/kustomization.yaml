@@ -1,5 +1,6 @@
+namespace: keycloakxdev
 bases:
-- github.com/Yolean/kubernetes-mysql-cluster/variants/scale-1-ephemeral?ref=bd4538dd07e12413a4c91345fbd8980184c976cf
+- github.com/Yolean/kubernetes-mysql-cluster/variants/scale-1-ephemeral?ref=7136118337f41c964a8cc72958cf27c24d099817
 patchesStrategicMerge:
 - mariadb-setup-keycloak.yaml
 configMapGenerator:

@@ -16,7 +16,9 @@ FROM yolean/builder-quarkus:927c0c196729e8409062991eb62ec77b7223f375@sha256:91a3
 #     -DskipTestsuite \
 #     -DskipExamples \
 #     -DskipTests \
-#     -Pdistribution
+#     -Pdistribution \
+#     -pl org.keycloak:keycloak-server-spi,org.keycloak:keycloak-server-spi-private,org.keycloak:keycloak-quarkus-server-deployment,org.keycloak:keycloak-client-cli-dist \
+#     -am
 
 # Instead of the above, use a local keycloak clone + mvn package, see also .dockerignore
 COPY keycloak/distribution/server-x-dist/target/*.gz keycloak/distribution/server-x-dist/target/

@@ -1,3 +1,5 @@
+# Keycloak.X on Kubernetes
+
 
 
 ### Configuration, JGroups
@@ -20,7 +22,24 @@ Status:
 - https://github.com/keycloak/keycloak/tree/master/quarkus/runtime/src/main/resources
 - https://github.com/keycloak/keycloak/blob/master/quarkus/server/src/main/resources/META-INF/keycloak.properties
 
-### Testing the image
+
+- https://issues.redhat.com/issues/?jql=project+%3D+KEYCLOAK+AND+component+%3D+%22Distribution+-+Quarkus%22
+- https://issues.redhat.com/issues/?jql=project+%3D+KEYCLOAK+AND+fixVersion+%3D+12.0.0
+- https://github.com/keycloak/keycloak-web/commits/1d0c4c427b3c617fae382dbe129088c1652a7f6d/blog/2020/first-keycloak-x-release.adoc
+- https://github.com/keycloak/keycloak-community/blob/master/design/keycloak.x/configuration.md
+- https://github.com/keycloak/keycloak-operator
+
+### Development
+
+As soon as you have SPIs the dev loop, including docker build, will matter
+
+```
+export KUBECONFIG=$(pwd)/kubeconfig
+k3d cluster create
+skaffold run
+```
+
+### Testing the image (WIP)
 
 ```
 docker build -t keycloakx .

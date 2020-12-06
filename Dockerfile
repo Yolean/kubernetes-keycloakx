@@ -35,47 +35,28 @@ WORKDIR /opt/keycloak.x
 COPY --from=dev /workspace/keycloak.x .
 
 ARG db=mariadb
-ARG db_host=mysql:3306
-ARG db_database=keycloak
-ARG db_username=keycloak
-ARG db_password=keycloak
-ARG db_properties="characterEncoding=UTF-8"
-ARG db_orm_dialect="org.hibernate.dialect.MariaDB102Dialect"
-
 ARG http_enabled=true
-# Or maybe =passthrough
 ARG proxy=edge
-
 ARG metrics_enabled=true
-
 ARG cluster=cluster
 ARG cluster_stack=kubernetes
 
 RUN ./bin/kc.sh config --help
+# https://github.com/keycloak/keycloak-community/blob/master/design/keycloak.x/configuration.md#dynamic-properties
+# > if the dynamic property is already set to the server image after running the config command, any attempt to override its value will be ignored
 RUN ./bin/kc.sh config \
   --db=${db} \
-  --db-username=${db_username} \
-  --db-password=${db_password} \
   --http-enabled=${http_enabled} \
   --proxy=${proxy} \
   --metrics-enabled=${metrics_enabled} \
   --cluster=${cluster} \
-  --cluster-stack=${cluster_stack} \
-  # \
-  # --datasource-driver=${db} \
-  # --datasource-url=jdbc:${db}://${db_host}/${db_database}?${db_properties} \
-  # --hibernate-orm-dialect=${db_orm_dialect} \
-  # --datasource-db-kind=${db} \
-  \
-  -Dkc.db.url.host=${db_host} \
-  -Dkc.db.url.database=${db_database} \
-  -Dkc.db.url.properties=${db_properties}
+  --cluster-stack=${cluster_stack}
 
 RUN ./bin/kc.sh show-config
 
 # RUN sed -i 's|exec |echo "Entrypoint would be:"; echo |' ./bin/kc.sh
 
-FROM solsson/kafka:jre-nonroot@sha256:a03ccf56b18291c3676320d2040bf9942c4260f441d71ee9fa4703a7cdd4f28b
+FROM adoptopenjdk:11.0.9_11-jre-hotspot-focal@sha256:f20df8e98a28a75b69f770be59b8431c2f878c29156fc8453fa0c5978857f3aa
 
 ENV HOME=/home/nonroot
 

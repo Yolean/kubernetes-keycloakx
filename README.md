@@ -1,6 +1,11 @@
 # Keycloak.X on Kubernetes
 
 
+- https://issues.redhat.com/issues/?jql=project+%3D+KEYCLOAK+AND+component+%3D+%22Distribution+-+Quarkus%22
+- https://issues.redhat.com/issues/?jql=project+%3D+KEYCLOAK+AND+fixVersion+%3D+12.0.0
+- https://github.com/keycloak/keycloak-web/commits/1d0c4c427b3c617fae382dbe129088c1652a7f6d/blog/2020/first-keycloak-x-release.adoc
+- https://github.com/keycloak/keycloak-community/blob/master/design/keycloak.x/configuration.md
+- https://github.com/keycloak/keycloak-operator
 
 ### Configuration, JGroups
 
@@ -21,13 +26,6 @@ Status:
 - https://github.com/keycloak/keycloak/commit/b04932ede56993d36de70768c41d4c946c4c79e0#diff-d6997f5a4578cd9576ae6f1fdb5739db
 - https://github.com/keycloak/keycloak/tree/master/quarkus/runtime/src/main/resources
 - https://github.com/keycloak/keycloak/blob/master/quarkus/server/src/main/resources/META-INF/keycloak.properties
-
-
-- https://issues.redhat.com/issues/?jql=project+%3D+KEYCLOAK+AND+component+%3D+%22Distribution+-+Quarkus%22
-- https://issues.redhat.com/issues/?jql=project+%3D+KEYCLOAK+AND+fixVersion+%3D+12.0.0
-- https://github.com/keycloak/keycloak-web/commits/1d0c4c427b3c617fae382dbe129088c1652a7f6d/blog/2020/first-keycloak-x-release.adoc
-- https://github.com/keycloak/keycloak-community/blob/master/design/keycloak.x/configuration.md
-- https://github.com/keycloak/keycloak-operator
 
 ### Development
 

@@ -27,12 +27,26 @@ RUN sha256sum keycloak/distribution/server-x-dist/target/*.gz
 
 RUN tar xvzf keycloak/distribution/server-x-dist/target/*.gz && mv keycloak.x-* keycloak.x
 
-FROM solsson/kafka:jre@sha256:a4626ab57cb4d4fcfca7faa097210a96561ef31765e8f0db6b6d259eef2a5628 \
+FROM adoptopenjdk:11.0.9_11-jre-hotspot-focal@sha256:f20df8e98a28a75b69f770be59b8431c2f878c29156fc8453fa0c5978857f3aa \
   as config
 
 WORKDIR /opt/keycloak.x
 
 COPY --from=dev /workspace/keycloak.x .
+
+RUN ./bin/kc.sh config --help
+# https://github.com/keycloak/keycloak-community/blob/master/design/keycloak.x/configuration.md#dynamic-properties
+# > if the dynamic property is already set to the server image after running the config command, any attempt to override its value will be ignored
+
+FROM adoptopenjdk:11.0.9_11-jre-hotspot-focal@sha256:f20df8e98a28a75b69f770be59b8431c2f878c29156fc8453fa0c5978857f3aa
+
+ENV HOME=/home/nonroot
+
+WORKDIR /opt/keycloak.x
+
+COPY --from=config /opt/keycloak.x .
+
+ENTRYPOINT /opt/keycloak.x/bin/kc.sh
 
 ARG db=mariadb
 ARG http_enabled=true
@@ -41,9 +55,6 @@ ARG metrics_enabled=true
 ARG cluster=cluster
 ARG cluster_stack=kubernetes
 
-RUN ./bin/kc.sh config --help
-# https://github.com/keycloak/keycloak-community/blob/master/design/keycloak.x/configuration.md#dynamic-properties
-# > if the dynamic property is already set to the server image after running the config command, any attempt to override its value will be ignored
 RUN ./bin/kc.sh config \
   --db=${db} \
   --http-enabled=${http_enabled} \
@@ -55,13 +66,3 @@ RUN ./bin/kc.sh config \
 RUN ./bin/kc.sh show-config
 
 # RUN sed -i 's|exec |echo "Entrypoint would be:"; echo |' ./bin/kc.sh
-
-FROM adoptopenjdk:11.0.9_11-jre-hotspot-focal@sha256:f20df8e98a28a75b69f770be59b8431c2f878c29156fc8453fa0c5978857f3aa
-
-ENV HOME=/home/nonroot
-
-WORKDIR /opt/keycloak.x
-
-COPY --from=config /opt/keycloak.x .
-
-ENTRYPOINT /opt/keycloak.x/bin/kc.sh

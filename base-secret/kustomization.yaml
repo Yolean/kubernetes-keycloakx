@@ -1,0 +1,4 @@
+secretGenerator:
+- name: keycloak
+  literals:
+  - sqlpassword=EXAMPLE

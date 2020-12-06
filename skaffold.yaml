@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+metadata:
+  name: kubernetes-keycloakx
+build:
+  artifacts:
+  - image: yolean/keycloakx
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kustomize:
+    paths:
+    #- base-mysql
+    - base

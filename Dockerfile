@@ -1,27 +1,27 @@
-FROM yolean/builder-quarkus:927c0c196729e8409062991eb62ec77b7223f375@sha256:91a3460de58d483cc37706a97c1323f2594217af3f31f16ec614d470a9e0c7a2 \
+FROM docker.io/yolean/builder-quarkus:2c6e176109a4cb1850cb7f8fa56411d370e3f705@sha256:9d309b1c352b1334eff63902216dc950a54eaf4433e985ed68ad9f5231750b48 \
   as dev
 
-# ARG keycloak_version=833bf9864356abe6f2c9f672edf1438b8635f48c
-#
-# WORKDIR /workspace
-#
-# RUN curl -sLS -o keycloak.tgz https://github.com/keycloak/keycloak/archive/$keycloak_version.tar.gz
-#
-# RUN tar xzf keycloak.tgz && mv keycloak-$keycloak_version keycloak
-#
-# # https://github.com/keycloak/keycloak/tree/master/quarkus#building-the-distribution
-# RUN cd keycloak/quarkus && \
-#   mvn --batch-mode -f ../pom.xml \
-#     clean install \
-#     -DskipTestsuite \
-#     -DskipExamples \
-#     -DskipTests \
-#     -Pdistribution \
-#     -pl org.keycloak:keycloak-server-spi,org.keycloak:keycloak-server-spi-private,org.keycloak:keycloak-quarkus-server-deployment,org.keycloak:keycloak-client-cli-dist \
-#     -am
+ARG keycloak_version=2ed8ed2543716e5d51acf2ef1c16c6ffd0f8d80b
+
+WORKDIR /workspace
+
+RUN curl -sLS -o keycloak.tgz https://github.com/keycloak/keycloak/archive/$keycloak_version.tar.gz
+
+RUN tar xzf keycloak.tgz && mv keycloak-$keycloak_version keycloak
+
+# https://github.com/keycloak/keycloak/tree/master/quarkus#building-the-distribution
+RUN cd keycloak/quarkus && \
+  mvn --batch-mode -f ../pom.xml \
+    clean install \
+    -DskipTestsuite \
+    -DskipExamples \
+    -DskipTests \
+    -Pdistribution \
+    -pl org.keycloak:keycloak-server-spi,org.keycloak:keycloak-server-spi-private,org.keycloak:keycloak-quarkus-server-deployment,org.keycloak:keycloak-client-cli-dist \
+    -am
 
 # Instead of the above, use a local keycloak clone + mvn package, see also .dockerignore
-COPY keycloak/distribution/server-x-dist/target/*.gz keycloak/distribution/server-x-dist/target/
+#COPY keycloak/distribution/server-x-dist/target/*.gz keycloak/distribution/server-x-dist/target/
 
 RUN sha256sum keycloak/distribution/server-x-dist/target/*.gz
 

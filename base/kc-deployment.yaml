@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: kc
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -24,8 +24,7 @@ spec:
       - name: keycloak
         image: yolean/keycloakx
         args:
-        # Development with 1 replicas
-        - --cluster=local
+        - -Djgroups.dns.query=jgroups-dns-ping
         env:
         - name: KC_DB_USERNAME
           value: keycloak
@@ -39,7 +38,7 @@ spec:
         - name: KC_DB_URL_DATABASE
           value: keycloak
         - name: KC_DB_URL_PROPERTIES
-          value: characterEncoding=UTF-8
+          value: "?characterEncoding=UTF-8"
         ports:
         - name: http
           containerPort: 8080

@@ -1,10 +1,12 @@
 namespace: keycloakxdev
 bases:
-- github.com/Yolean/kubernetes-mysql-cluster/variants/scale-1-ephemeral?ref=7136118337f41c964a8cc72958cf27c24d099817
+- github.com/Yolean/kubernetes-mysql-cluster/base?ref=409fa08b113cb76caaa55dbf9f1a747cccb8339c
+- ../base-secret
 patchesStrategicMerge:
 - mariadb-setup-keycloak.yaml
-configMapGenerator:
-- name: conf-d
-  behavior: merge
-  files:
-  - utf8.cnf
+- mariadb-resources.yaml
+# configMapGenerator:
+# - name: conf-d
+#   behavior: merge
+#   files:
+#   - utf8.cnf

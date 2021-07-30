@@ -1,6 +1,6 @@
 # Keycloak.x for Quarkus dev mode
 
-The initial [https://github.com/quarkusio/quarkus/pull/17364/files](DevServices support for Keycloak) uses the default Keycloak distribution,
+The initial [DevServices support for Keycloak](https://github.com/quarkusio/quarkus/pull/17364) uses the default Keycloak distribution,
 instead of the leaner Keycloak.x ["Preview"](https://www.keycloak.org/downloads).
 
 While Quarkus dev depends on [hard coded](https://github.com/quarkusio/quarkus/blob/2.1.0.Final/extensions/oidc/deployment/src/main/java/io/quarkus/oidc/deployment/devservices/keycloak/KeycloakDevServicesProcessor.java#L169) [paths](https://github.com/quarkusio/quarkus/blob/2.1.0.Final/extensions/oidc/deployment/src/main/java/io/quarkus/oidc/deployment/devservices/keycloak/KeycloakDevServicesProcessor.java#L342)

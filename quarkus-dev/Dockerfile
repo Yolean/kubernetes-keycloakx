@@ -8,5 +8,3 @@ ENV KEYCLOAK_ADMIN=admin KEYCLOAK_ADMIN_PASSWORD=admin
 COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
 COPY docker-entrypoint-with-proxy.sh /opt/jboss/tools/docker-entrypoint-with-proxy.sh
 ENTRYPOINT [ "/opt/jboss/tools/docker-entrypoint-with-proxy.sh" ]
-
-# fails on https://github.com/quarkusio/quarkus/blob/2.1.0.Final/extensions/oidc/deployment/src/main/java/io/quarkus/oidc/deployment/devservices/keycloak/KeycloakDevServicesProcessor.java#L342

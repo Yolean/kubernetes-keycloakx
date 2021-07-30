@@ -15,6 +15,8 @@ quarkus.keycloak.devservices.image-name=yolean/keycloakx:dev-quarkus
 The differences between the [default](https://quay.io/quay.io/keycloak/keycloak) keycloak image and [keycloak-x](quay.io/keycloak/keycloak-x) are captured in our
 [envoy proxy path rewrites](./docker-entrypoint-with-proxy.sh#L60).
 
-Access logs are available using `docker exec [container name from docker ps] tail -f /tmp/envoy.log`.
+Access logs are available using `docker exec $(docker ps | grep keycloak | cut -d' ' -f 1) tail -f /tmp/envoy.log`.
+
+With this image, as with the default one, the OpenID Connect steps from http://localhost:8080/q/dev should work. See [the dev services guide](https://quarkus.io/guides/security-openid-connect-dev-services) for more information.
 
 In Kubernetes the proxy can run more elegantly as a sidecar.

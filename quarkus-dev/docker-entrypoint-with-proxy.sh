@@ -63,6 +63,11 @@ static_resources:
                   prefix_rewrite: "/realms"
                   cluster: keycloak
               - match:
+                  prefix: "/auth/admin/realms"
+                route:
+                  prefix_rewrite: "/admin/realms"
+                  cluster: keycloak
+              - match:
                   prefix: "/"
                 route:
                   cluster: keycloak

@@ -6,4 +6,4 @@ thus needs more variants than legacy keycloak.
 We build example variants using [docker-compose --build](./docker-compose.yml).
 
 See:
-- [./quarkus-dev/](Quarkus Dev Services replacement image).
+- [Quarkus Dev Services replacement image](./quarkus-dev/).

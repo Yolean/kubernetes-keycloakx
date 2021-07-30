@@ -1,6 +1,6 @@
 FROM envoyproxy/envoy:v1.19.0 as envoy
 
-FROM quay.io/keycloak/keycloak-x:14.0.0
+FROM quay.io/keycloak/keycloak-x:15.0.0
 
 CMD ["start-dev"]
 ENV KEYCLOAK_ADMIN=admin KEYCLOAK_ADMIN_PASSWORD=admin

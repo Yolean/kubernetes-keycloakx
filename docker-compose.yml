@@ -2,53 +2,11 @@ version: '2.4'
 
 services:
 
-  mysql:
-    image: mariadb:10.3.33@sha256:74ec811b4dd9580f6c6a110e46123e72b9d1eac930cff505e2d8e3e658edc804
-    expose:
-    - "3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: insecure-local-instance
-      MYSQL_DATABASE: keycloak
-      MYSQL_USER: keycloak
-      MYSQL_PASSWORD: keycloak
-    # https://issues.jboss.org/browse/KEYCLOAK-3873
-    command:
-    - --character-set-server=utf8
-    - --collation-server=utf8_unicode_ci
-
-  keycloakx1:
+  dev-quarkus:
+    image: yolean/keycloakx:dev-quarkus
     build:
-      context: .
-      args:
-        cluster: local
-    depends_on:
-    - mysql
-    ports:
-    - 8080:8080
-    volumes:
-    - ./conf:/opt/keycloak.x/conf
-    # With kc.sh patched, by Dockerfile, to only do echo:
-    # entrypoint:
-    # - java
-    command:
-    - -Dkc.db.url.host=mysql:3306
-    - -Dkc.db.url.database=keycloak
-    - -Dkc.db.url.properties='characterEncoding=UTF-8'
-    - -Dkc.db.url.username=keycloak
-    - -Dkc.db.url.password=keycloak
-    # # the remainder is generated from the kc.sh patched by Dockerfile
-    # - -Xms64m
-    # - -Xmx512m
-    # - -XX:MetaspaceSize=96M
-    # - -XX:MaxMetaspaceSize=256m
-    # - -Djava.net.preferIPv4Stack=true
-    # - -Dkeycloak.home.dir=/opt/keycloak.x/bin/../
-    # - -Djboss.server.config.dir=/opt/keycloak.x/bin/../conf
-    # - -Dkeycloak.theme.dir=/opt/keycloak.x/bin/../themes
-    # - -Djava.util.logging.manager=org.jboss.logmanager.LogManager
-    # - -cp
-    # -    /opt/keycloak.x/bin/../lib/quarkus-run.jar:/opt/keycloak.x/bin/../lib/main/*
-    # - io.quarkus.bootstrap.runner.QuarkusEntryPoint
-    - --datasource-username=keycloak \
-    - --datasource-password=keycloak \
-    - --datasource-url=jdbc:mariadb://mysql:3306/keycloak?characterEncoding=UTF-8
+      context: quarkus-dev
+    entrypoint:
+    - /opt/jboss/keycloak/bin/kc.sh
+    - show-config
+    command: []
